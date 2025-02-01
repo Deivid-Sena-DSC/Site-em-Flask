@@ -71,5 +71,15 @@ def criar_post():
 @login_required
 def editar_perfil():
     form_editar = FormEditarperfil()
+    if form_editar.validate_on_submit():
+        current_user.email = form_editar.email_editar.data
+        current_user.username = form_editar.username.data
+        database.session.commit()
+        flash('Perfil atualizado com sucesso!', 'alert-success')
+        return redirect(url_for('perfil'))
+    elif request.method == "GET":
+        form_editar.username.data = current_user.username
+        form_editar.email_editar.data = current_user.email
+
     foto_perfil = url_for('static', filename='fotos_perfil/{}'.format(current_user.foto_perfil))
     return render_template('editarperfil.html', foto_perfil=foto_perfil, form_editar=form_editar)
