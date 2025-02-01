@@ -15,16 +15,34 @@
             </li>
         </ul>    
         <ul class="d-flex nav">
+            {% if current_user.is_authenticated %}
             <li>
-                <a class="container-fluid justify-content-start" href="{{ url_for('login') }}">
-                    <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Login</button>
+                <a class="navbar-brand" href="{{ url_for('criar_post') }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Criar Post</button>
                 </a>
             </li>
             <li>
-                <a class="container-fluid justify-content-start" href="{{ url_for('login') }}">
-                    <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Criar Conta</button>
+                <a class="navbar-brand" href="{{ url_for('perfil') }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Meu Perfil</button>
                 </a>
             </li>
+            <li>
+                <a class="navbar-brand" href="{{ url_for('sair') }}">
+                    <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Sair</button>
+                </a>
+            </li>
+            {% else %}
+                <li>
+                    <a class="navbar-brand" href="{{ url_for('login') }}">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Login</button>
+                    </a>
+                </li>
+                <li>
+                    <a class="navbar-brand" href="{{ url_for('login') }}">
+                        <button class="btn btn-sm btn-outline-secondary" type="button" style="color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-weight: 700;">Criar Conta</button>
+                    </a>
+                </li>
+            {% endif %}    
             <li>
                 <a class="navbar-brand" href="https://getbootstrap.com/" target="_blank" style="color: rgb(217, 0, 255); font-size: x-large; font-weight: 600;">
                     <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="50" height="35" class="d-inline-block align-text-top">
