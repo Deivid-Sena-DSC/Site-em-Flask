@@ -8,7 +8,7 @@
         </h3>
         <h2>
             {% for usuarios in lista_usuarios %}
-                <table>{{usuarios}}</table>
+                <table>{{ usuarios.username }}<br>{{ usuarios.email }}</table>
                 <hr>
             {% endfor %}
         </h2>

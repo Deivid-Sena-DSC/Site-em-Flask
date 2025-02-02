@@ -4,8 +4,6 @@ from site_flask.forms import FormCriarConta, FormLogin, FormEditarperfil
 from site_flask.models import Usuarios
 from flask_login import login_user, logout_user, current_user, login_required
 
-lista_usuarios = ['1','2','2']
-
 @app.route("/")
 def home():
     return render_template('home.html') 
@@ -17,6 +15,7 @@ def contato():
 @app.route("/usuarios")
 @login_required
 def usuarios():
+    lista_usuarios = database.session.query(Usuarios).all()
     return render_template('usuarios.html', lista_usuarios=lista_usuarios)
 
 
