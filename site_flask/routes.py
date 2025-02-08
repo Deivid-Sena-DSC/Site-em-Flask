@@ -3,6 +3,22 @@ from site_flask import app, database, bcrypt
 from site_flask.forms import FormCriarConta, FormLogin, FormEditarperfil
 from site_flask.models import Usuarios
 from flask_login import login_user, logout_user, current_user, login_required
+import secrets
+import os
+from PIL import Image
+
+
+def salvar_imagem(nome_imagem):
+    codigo = secrets.token_hex(8)
+    nome, extensao = os.path.splitext(nome_imagem.filename)
+    nome_arquivo = nome + codigo + extensao
+    caminho_imagem = os.path.join(app.root_path, 'static/fotos_perfil', nome_arquivo)
+    tamanho = (350, 350)
+    imagem_reduzida = Image.open(nome_imagem)
+    imagem_reduzida.thumbnail(tamanho)
+    imagem_reduzida.save(caminho_imagem)
+    return nome_arquivo        
+
 
 @app.route("/")
 def home():
@@ -73,6 +89,9 @@ def editar_perfil():
     if form_editar.validate_on_submit():
         current_user.email = form_editar.email_editar.data
         current_user.username = form_editar.username.data
+        if form_editar.foto_perfil.data:
+            nome_imagem = salvar_imagem(form_editar.foto_perfil.data)
+            current_user.foto_perfil = nome_imagem
         database.session.commit()
         flash('Perfil atualizado com sucesso!', 'alert-success')
         return redirect(url_for('perfil'))
